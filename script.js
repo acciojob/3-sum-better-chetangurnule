@@ -21,12 +21,15 @@ function threeSum(arr, target) {
             if(targetIndex !== 0 && targetIndex !== newArr.length-1){
                 let lowestNumOne = newArr[targetIndex] - newArr[targetIndex-1];
                 let lowestNumTwo = newArr[targetIndex+1] - newArr[targetIndex];
-                return Math.min(lowestNumOne, lowestNumTwo);
+                if(lowestNumOne < lowestNumTwo){
+                    return newArr[targetIndex-1];
+                }else{
+                    return newArr[targetIndex+1];
+                }
             }else if(targetIndex === 0){
-                return newArr[targetIndex+1] - newArr[targetIndex];
+                return newArr[targetIndex+1];
             }else{
-                return newArr[targetIndex] - newArr[targetIndex-1];
+                return newArr[targetIndex-1];
             }
-    }
 
 module.exports = threeSum;
