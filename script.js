@@ -1,35 +1,23 @@
-function threeSum(arr, target) {
-    // write your code here
-        let newArr = [];
-        for(let i = 0; i < arr.length-2; i++){
-            for(let j = i+1; j < arr.length-1; j++){
-                for(let k = j+1; k < arr.length; k++){
-                    let sumOfThree = arr[i] + arr[j] + arr[k];
-                    newArr.push(sumOfThree);
-                }
-            }
-        }
-          newArr.push(target);
-            newArr.sort((a, b)=> a-b);
-            console.log(newArr);
-            let targetIndex = 0;
-            for(let[index, value] of newArr.entries()){
-                if(target === value){
-                    targetIndex = index;
-                }
-            }
-            if(targetIndex !== 0 && targetIndex !== newArr.length-1){
-                let lowestNumOne = newArr[targetIndex] - newArr[targetIndex-1];
-                let lowestNumTwo = newArr[targetIndex+1] - newArr[targetIndex];
-                if(lowestNumOne < lowestNumTwo){
-                    return newArr[targetIndex-1];
-                }else{
-                    return newArr[targetIndex+1];
-                }
-            }else if(targetIndex === 0){
-                return newArr[targetIndex+1];
-            }else{
-                return newArr[targetIndex-1];
-            }
-
+function threeSum(nums, target) {
+nums.sort((a, b) => a - b); // sort the array in ascending order
+let closestSum = Infinity; // initialize the closest sum to a large value
+for (let i = 0; i < nums.length - 2; i++) {
+let left = i + 1;
+let right = nums.length - 1;
+while (left < right) {
+let sum = nums[i] + nums[left] + nums[right];
+if (Math.abs(target - sum) < Math.abs(target - closestSum)) {
+closestSum = sum; // update the closest sum
+}
+if (sum < target) {
+left++;
+} else if (sum > target) {
+right--;
+} else {
+return closestSum; // return the closest sum if we find an exact match
+}
+}
+}
+return closestSum; // return the closest sum at the end of the loop
+}
 module.exports = threeSum;
